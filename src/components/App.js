@@ -3,7 +3,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
-import ImagePopup from './ImagePopup';
+//import ImagePopup from './ImagePopup';
 
 
 function App() {
@@ -11,9 +11,10 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState();
 
   return (
-    <body className="root">
+    <div className="root">
       <Header />
       <Main onEditProfile={handleEditProfileClick} onEditAvatar={handleEditAvatarClick} onAddPlace={handleAddPlaceClick} />
       <Footer />
@@ -46,25 +47,8 @@ function App() {
       } />
 
       <PopupWithForm name='delete-card' title='Вы уверены?' onClose={closeAllPopups}/>
-      <ImagePopup />
-
-
-
-
-      <template className="template" id="template">
-        <li className="element">
-          <img alt="" className="element__image" />
-          <button type="button" aria-label="delete" className="element__delete-button element__delete-button_hidden"></button>
-          <div className="element__info">
-            <h2 className="element__title"></h2>
-            <div className="element__like-area">
-              <button type="button" aria-label="like" className="element__like-button"></button>
-              <span className="element__like-count"></span>
-            </div>
-          </div>
-        </li>
-      </template>
-    </body>
+      {/* <ImagePopup card={selectedCard} onClose={closeAllPopups}/> */}
+    </div>
   );
 
   function handleEditProfileClick() {
@@ -83,6 +67,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard('');
   }
 }
 
