@@ -3,7 +3,7 @@ import React from 'react';
 function Card(props) {
   return (
     <li className="element">
-      <img alt="" className="element__image" src={props.card.link} />
+      <img alt="" className="element__image" src={props.card.link} onClick={handleClick} />
       <button type="button" aria-label="delete" className="element__delete-button element__delete-button_hidden"></button>
       <div className="element__info">
         <h2 className="element__title">{props.card.name}</h2>
@@ -14,6 +14,10 @@ function Card(props) {
       </div>
     </li>
   );
+
+  function handleClick() {
+    props.onCardClick(props.card);
+  }
 }
 
 export default Card;
