@@ -47,7 +47,7 @@ function App() {
         onClose={closeAllPopups}
         children={
           <>
-            <input type="url" name="avatar" placeholder="Ссылка на картинку" value="" required className="popup__input"
+            <input type="url" name="avatar" placeholder="Ссылка на картинку" defaultValue="" required className="popup__input"
               id="linkAvatar" />
             <span className="popup__input_type_error" id="linkAvatar-error"></span>
           </>
@@ -60,10 +60,10 @@ function App() {
         onClose={closeAllPopups}
         children={
           <>
-            <input type="text" name="name" placeholder="Название" value="" required minLength="1" maxLength="30"
+            <input type="text" name="name" placeholder="Название" defaultValue="" required minLength="1" maxLength="30"
               className="popup__input" id="cardName" />
             <span className="popup__input_type_error" id="cardName-error"></span>
-            <input type="url" name="link" placeholder="Ссылка на картинку" value="" required className="popup__input"
+            <input type="url" name="link" placeholder="Ссылка на картинку" defaultValue="" required className="popup__input"
               id="linkPhoto" />
             <span className="popup__input_type_error" id="linkPhoto-error"></span>
           </>
