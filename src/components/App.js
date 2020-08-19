@@ -11,7 +11,30 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState();
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setSelectedCard(undefined);
+  }
 
   return (
     <div className="root">
@@ -30,44 +53,36 @@ function App() {
         name='profile'
         title='Редактировать профиль'
         isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-        children={
-          <>
-            <input type="text" name="name" required minLength="2" maxLength="40" className="popup__input" id="inputName" />
-            <span className="popup__input_type_error" id="inputName-error"></span>
-            <input type="text" name="about" required minLength="2" maxLength="200" className="popup__input" id="inputJob" />
-            <span className="popup__input_type_error" id="inputJob-error"></span>
-          </>
-        } />
+        onClose={closeAllPopups}>
+        <input type="text" name="name" required minLength="2" maxLength="40" className="popup__input" id="inputName" />
+        <span className="popup__input_type_error" id="inputName-error"></span>
+        <input type="text" name="about" required minLength="2" maxLength="200" className="popup__input" id="inputJob" />
+        <span className="popup__input_type_error" id="inputJob-error"></span>
+      </PopupWithForm>
 
       <PopupWithForm
         name='avatar'
         title='Обновить аватар'
         isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-        children={
-          <>
-            <input type="url" name="avatar" placeholder="Ссылка на картинку" defaultValue="" required className="popup__input"
-              id="linkAvatar" />
-            <span className="popup__input_type_error" id="linkAvatar-error"></span>
-          </>
-        } />
+        onClose={closeAllPopups}>
+        <input type="url" name="avatar" placeholder="Ссылка на картинку" defaultValue="" required className="popup__input"
+          id="linkAvatar" />
+        <span className="popup__input_type_error" id="linkAvatar-error"></span>
+      </PopupWithForm>
 
       <PopupWithForm
         name='add-card'
         title='Новое место'
         isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-        children={
-          <>
-            <input type="text" name="name" placeholder="Название" defaultValue="" required minLength="1" maxLength="30"
-              className="popup__input" id="cardName" />
-            <span className="popup__input_type_error" id="cardName-error"></span>
-            <input type="url" name="link" placeholder="Ссылка на картинку" defaultValue="" required className="popup__input"
-              id="linkPhoto" />
-            <span className="popup__input_type_error" id="linkPhoto-error"></span>
-          </>
-        } />
+        onClose={closeAllPopups}>
+        <input type="text" name="name" placeholder="Название" defaultValue="" required minLength="1" maxLength="30"
+          className="popup__input" id="cardName" />
+        <span className="popup__input_type_error" id="cardName-error"></span>
+        <input type="url" name="link" placeholder="Ссылка на картинку" defaultValue="" required className="popup__input"
+          id="linkPhoto" />
+        <span className="popup__input_type_error" id="linkPhoto-error"></span>
+      </PopupWithForm>
+
 
       <PopupWithForm
         name='delete-card'
@@ -79,33 +94,8 @@ function App() {
         card={selectedCard}
         onClose={closeAllPopups}
       />
-
     </div>
   );
-
-  function handleCardClick(card) {
-    setSelectedCard(card);
-  }
-
-  function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true);
-  }
-
-  function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(true);
-  }
-
-  function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true);
-  }
-
-
-  function closeAllPopups() {
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
-    setSelectedCard('');
-  }
 }
 
 export default App;

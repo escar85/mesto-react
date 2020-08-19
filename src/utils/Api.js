@@ -19,6 +19,9 @@ class Api {
 
         return Promise.reject(`Ошибка: ${res.status}`);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // метод отправляет новые данные пользователя на сервер
@@ -38,6 +41,9 @@ class Api {
 
         return Promise.reject(`Ошибка: ${res.status}`);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // метод для получения массива карточек с сервера
@@ -54,6 +60,9 @@ class Api {
 
         return Promise.reject(`Ошибка: ${res.status}`);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // метод добавления карточки
@@ -73,6 +82,9 @@ class Api {
 
         return Promise.reject(`Ошибка: ${res.status}`);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   like(cardId) {
@@ -87,6 +99,9 @@ class Api {
 
         return Promise.reject(`Ошибка: ${res.status}`);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   disLike(cardId) {
@@ -101,6 +116,9 @@ class Api {
 
         return Promise.reject(`Ошибка: ${res.status}`);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // метод смены аватара
@@ -117,6 +135,9 @@ class Api {
 
         return Promise.reject(`Ошибка: ${res.status}`);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // метод удаления карточки
@@ -132,6 +153,9 @@ class Api {
 
         return Promise.reject(`Ошибка: ${res.status}`);
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
 
@@ -145,13 +169,3 @@ const api = new Api({
 });
 
 export default api;
-
-
-
-
-
-
-
-
-
-// _id: "478d181f5629dafe2d203282"
