@@ -4,6 +4,7 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -51,6 +52,17 @@ function App() {
     closeAllPopups();
   }
 
+  function handleUpdateAvatar(newAvatar) {
+    api.setUserAvatar(newAvatar)
+    .then((res) => {
+      setCurrentUser(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    closeAllPopups();
+  }
+
   React.useEffect(() => {
     api.getUserInfo()
       .then((res) => {
@@ -82,15 +94,11 @@ function App() {
           onUpdateUser={handleUpdateUser}
         />
 
-        <PopupWithForm
-          name='avatar'
-          title='Обновить аватар'
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}>
-          <input type="url" name="avatar" placeholder="Ссылка на картинку" defaultValue="" required className="popup__input"
-            id="linkAvatar" />
-          <span className="popup__input_type_error" id="linkAvatar-error"></span>
-        </PopupWithForm>
+        <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
+        />
 
         <PopupWithForm
           name='add-card'
