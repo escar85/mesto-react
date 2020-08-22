@@ -87,26 +87,9 @@ class Api {
       });
   }
 
-  like(cardId) {
+  changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: 'PUT',
-      headers: this._headers,
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  disLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: 'DELETE',
+      method: isLiked ? 'PUT' : 'DELETE',
       headers: this._headers,
     })
       .then(res => {
