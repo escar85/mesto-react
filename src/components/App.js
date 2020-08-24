@@ -2,20 +2,20 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
+import ConfirmDeleteCardPopup from './ConfirmDeleteCardPopup';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-
 
 function App() {
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isConfirmDeleteCardPopupOpen, setConfirmDeleteCardPopupOpen] = React.useState();
   const [selectedCard, setSelectedCard] = React.useState();
   const [currentUser, setCurrentUser] = React.useState([]);
   const [cards, setCards] = React.useState([]);
@@ -36,11 +36,16 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
+  function handleConfirmDeleteCardClick(card) {
+    setConfirmDeleteCardPopupOpen(card);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(undefined);
+    setConfirmDeleteCardPopupOpen('');
   }
 
   // обработчик обновления данных пользователя
@@ -93,6 +98,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+    closeAllPopups();
   }
 
   // обработчик добавления новой карточки
@@ -104,30 +110,37 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-      closeAllPopups();
+    closeAllPopups();
   }
 
-  // эффект для получения карточек с сервера
+  // эффект для получения массива карточек и данных пользователя с сервера
   React.useEffect(() => {
-    api.getInitialCards()
-      .then((data) => {
+    Promise.all([api.getInitialCards(), api.getUserInfo()])
+      .then(([data, user]) => {
         setCards(data);
+        setCurrentUser(user)
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  // эффект для получения данных пользователя с сервера
+  // эффект для закрытия попапов кликом на оверлей или по нажатию клавиши "ESC"
   React.useEffect(() => {
-    api.getUserInfo()
-      .then((res) => {
-        setCurrentUser(res)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    function handleCloseByOverlayClickAndPressEscape(e) {
+      if (e.key === 'Escape' || e.target.classList.contains('popup_opened')) {
+        closeAllPopups();
+      }
+    }
+
+    document.addEventListener('click', handleCloseByOverlayClickAndPressEscape);
+    document.addEventListener('keydown', handleCloseByOverlayClickAndPressEscape);
+
+    return () => {
+      document.removeEventListener('click', handleCloseByOverlayClickAndPressEscape);
+      document.removeEventListener('keydown', handleCloseByOverlayClickAndPressEscape);
+    }
+  })
 
   return (
     <div className="root">
@@ -141,7 +154,7 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+          onCardDelete={handleConfirmDeleteCardClick}
           cards={cards}
         />
 
@@ -165,16 +178,15 @@ function App() {
           onAddPlace={handleAddPlaceSubmit}
         />
 
-
-        <PopupWithForm
-          name='delete-card'
-          title='Вы уверены?'
-          onClose={closeAllPopups}
-        />
-
         <ImagePopup
           card={selectedCard}
           onClose={closeAllPopups}
+        />
+
+        <ConfirmDeleteCardPopup
+          isOpen={isConfirmDeleteCardPopupOpen}
+          onClose={closeAllPopups}
+          onCardDelete={handleCardDelete}
         />
 
       </CurrentUserContext.Provider>
