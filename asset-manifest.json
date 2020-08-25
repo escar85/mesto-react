@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/mesto-react/static/css/main.7aeb0c5f.chunk.css",
+    "main.js": "/mesto-react/static/js/main.5ba7bd9e.chunk.js",
+    "main.js.map": "/mesto-react/static/js/main.5ba7bd9e.chunk.js.map",
+    "runtime-main.js": "/mesto-react/static/js/runtime-main.36fb0e45.js",
+    "runtime-main.js.map": "/mesto-react/static/js/runtime-main.36fb0e45.js.map",
+    "static/js/2.6e4763c2.chunk.js": "/mesto-react/static/js/2.6e4763c2.chunk.js",
+    "static/js/2.6e4763c2.chunk.js.map": "/mesto-react/static/js/2.6e4763c2.chunk.js.map",
+    "index.html": "/mesto-react/index.html",
+    "precache-manifest.54400ef3bd43dbd732fb1c0ca694547a.js": "/mesto-react/precache-manifest.54400ef3bd43dbd732fb1c0ca694547a.js",
+    "service-worker.js": "/mesto-react/service-worker.js",
+    "static/css/main.7aeb0c5f.chunk.css.map": "/mesto-react/static/css/main.7aeb0c5f.chunk.css.map",
+    "static/js/2.6e4763c2.chunk.js.LICENSE.txt": "/mesto-react/static/js/2.6e4763c2.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/mesto-react/static/media/heart.6c74d9b5.svg",
+    "static/media/logo__mesto.svg": "/mesto-react/static/media/logo__mesto.4e5bdbab.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.36fb0e45.js",
+    "static/js/2.6e4763c2.chunk.js",
+    "static/css/main.7aeb0c5f.chunk.css",
+    "static/js/main.5ba7bd9e.chunk.js"
+  ]
+}
