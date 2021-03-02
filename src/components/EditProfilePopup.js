@@ -1,13 +1,13 @@
-import React from 'react';
-import PopupWithForm from './PopupWithForm';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
-
+import React, { useState, useContext, useEffect } from "react";
+import PopupWithForm from "./PopupWithForm";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup(props) {
+  const { isOpen, onClose, onUpdateUser } = props;
 
-  const currentUser = React.useContext(CurrentUserContext);
-  const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  const currentUser = useContext(CurrentUserContext);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -21,25 +21,25 @@ function EditProfilePopup(props) {
     e.preventDefault();
 
     // Передаём значения управляемых компонентов во внешний обработчик
-    props.onUpdateUser({
+    onUpdateUser({
       name,
       about: description,
     });
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
   }, [currentUser]);
 
   return (
     <PopupWithForm
-      name='profile'
-      title='Редактировать профиль'
-      isOpen={props.isOpen}
-      onClose={props.onClose}
-      onSubmit={handleSubmit}>
-
+      name="profile"
+      title="Редактировать профиль"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+    >
       <input
         type="text"
         name="name"
@@ -65,7 +65,7 @@ function EditProfilePopup(props) {
       />
       <span className="popup__input_type_error" id="inputJob-error"></span>
     </PopupWithForm>
-  )
+  );
 }
 
 export default EditProfilePopup;

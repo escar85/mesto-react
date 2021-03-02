@@ -1,28 +1,29 @@
-import React from 'react';
-import PopupWithForm from './PopupWithForm';
+import React, { useRef } from "react";
+import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
+  const { isOpen, onClose, onAddPlace } = props;
 
-  const placeName = React.useRef();
-  const placeLink = React.useRef();
+  const placeName = useRef();
+  const placeLink = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    props.onAddPlace({
+    onAddPlace({
       name: placeName.current.value,
-      link: placeLink.current.value
+      link: placeLink.current.value,
     });
-    placeName.current.value = '';
-    placeLink.current.value = '';
+    placeName.current.value = "";
+    placeLink.current.value = "";
   }
 
   return (
     <PopupWithForm
-      name='add-card'
-      title='Новое место'
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      name="add-card"
+      title="Новое место"
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <input
@@ -50,7 +51,7 @@ function AddPlacePopup(props) {
       />
       <span className="popup__input_type_error" id="linkPhoto-error"></span>
     </PopupWithForm>
-  )
+  );
 }
 
 export default AddPlacePopup;
